@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scroll-anchor",
+  "name": "@sellpy/react-native-scroll-anchor",
   "version": "0.1.0",
   "description": "Hooks and utilities to simplify scrolling to elements in react native",
   "main": "lib/commonjs/index",

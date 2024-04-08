@@ -3,8 +3,6 @@
 [![npm version](https://badge.fury.io/js/react-native-scroll-anchor.svg)](https://badge.fury.io/js/react-native-scroll-anchor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**⚠️ This package is not production ready**
-
 **Hooks and utilities to simplify scrolling to elements in React Native**.
 
 - Zero dependencies 📦

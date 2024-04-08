@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import React, {
   Component,
   useCallback,
@@ -69,7 +68,6 @@ const useScrollAnchor = (
   const throttleScrollTo = useCallback(
     memoize((_anchorName) =>
       asyncThrottle((pos) => {
-        console.log('scrolling to', pos, ref.current?.scrollTo);
         ref.current?.scrollTo(pos);
       }, throttleMs)
     ),

@@ -18,6 +18,7 @@ npm install @sellpy/react-native-scroll-anchor
 ## Usage
 
 ```tsx
+import React, { useRef } from 'react';
 import { Button, ScrollView, TextInput, View } from 'react-native';
 import {
   Anchor,

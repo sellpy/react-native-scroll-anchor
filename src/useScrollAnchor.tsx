@@ -40,9 +40,6 @@ export interface ScrollAnchorMethods {
   scrollTo: (key: string) => void;
   timeoutOnScroll: (timeMs: number) => void;
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  calculateAnchors: (
-    anchorRefs: Record<string, React.RefObject<NativeComponent>>
-  ) => Promise<Record<string, Coordinates>>;
   anchorRefs: Record<string, React.RefObject<NativeComponent>>;
 }
 
@@ -202,7 +199,6 @@ const useScrollAnchor = (
     scrollTo,
     timeoutOnScroll,
     onScroll,
-    calculateAnchors,
     anchorRefs,
   };
 };
@@ -272,7 +268,6 @@ export const ScrollAnchorContext = React.createContext<ScrollAnchorMethods>({
   scrollTo: () => null,
   timeoutOnScroll: () => null,
   onScroll: () => null,
-  calculateAnchors: async () => ({}),
   anchorRefs: {},
 });
 

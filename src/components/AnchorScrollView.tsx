@@ -1,19 +1,15 @@
-import React, { useRef, type ReactNode } from 'react';
+import React, { useRef } from 'react';
 import { ScrollView } from 'react-native';
+import { ScrollAnchorProvider } from '../Context';
 import type { ScrollAnchorOptions } from '../hooks/useScrollAnchor';
 import useScrollAnchor from '../hooks/useScrollAnchor';
-import { ScrollAnchorProvider } from '../Context';
 
 type ScrollViewProps = React.ComponentProps<typeof ScrollView>;
-interface AnchorScrollViewProps {
-  children: ReactNode;
-  props: ScrollAnchorOptions & ScrollViewProps;
-}
 
-export const AnchorScrollView = ({
+const AnchorScrollView = ({
   children,
-  props,
-}: AnchorScrollViewProps) => {
+  ...props
+}: ScrollAnchorOptions & ScrollViewProps) => {
   const ref = useRef<ScrollView>(null);
 
   const methods = useScrollAnchor(ref, props);
@@ -21,13 +17,16 @@ export const AnchorScrollView = ({
   return (
     <ScrollAnchorProvider {...methods}>
       <ScrollView
+        /* Default scrollEventThrottle to 32, consumer can override this with props */
+        scrollEventThrottle={32}
         {...props}
         ref={ref}
         onScroll={methods.onScroll}
-        scrollEventThrottle={32}
       >
         {children}
       </ScrollView>
     </ScrollAnchorProvider>
   );
 };
+
+export default AnchorScrollView;

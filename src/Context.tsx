@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { type ScrollAnchorMethods } from './useScrollAnchor';
+import { type ScrollAnchorMethods } from './hooks/useScrollAnchor';
 
 export const ScrollAnchorContext = React.createContext<ScrollAnchorMethods>({
   register: () => null,

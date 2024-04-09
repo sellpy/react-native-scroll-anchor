@@ -4,8 +4,8 @@ import {
   ScrollAnchorProvider,
   useScrollAnchorContext,
 } from './Context';
-import { useAnchorRef } from './useAnchorRef';
-import useScrollAnchor from './useScrollAnchor';
+import { useAnchorRef } from './hooks/useAnchorRef';
+import useScrollAnchor from './hooks/useScrollAnchor';
 
 export {
   useScrollAnchor,

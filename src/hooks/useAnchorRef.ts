@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { useScrollAnchorContext } from './Context';
+import { useScrollAnchorContext } from '../Context';
 import type { NativeComponent } from './useScrollAnchor';
 
 export const useAnchorRef = (key: string) => {

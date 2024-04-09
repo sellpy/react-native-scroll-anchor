@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ReactNode } from 'react';
 import { View } from 'react-native';
-import { useAnchorRef } from './useAnchorRef';
+import { useAnchorRef } from './hooks/useAnchorRef';
 
 export const Anchor = ({
   name,

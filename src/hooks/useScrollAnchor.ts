@@ -5,10 +5,10 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
-import { throttle } from './utils/throttle';
-import { InvalidAnchorKey, InvalidRefError } from './errors';
-import { memoize } from './utils/memoize';
-import { debounce } from './utils/debounce';
+import { throttle } from '../utils/throttle';
+import { InvalidAnchorKey, InvalidRefError } from '../errors';
+import { memoize } from '../utils/memoize';
+import { debounce } from '../utils/debounce';
 
 export type NativeComponent = Component<unknown> & NativeMethods;
 

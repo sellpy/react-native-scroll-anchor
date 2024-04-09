@@ -1,4 +1,4 @@
-import { Anchor } from './Anchor';
+import { Anchor } from './components/Anchor';
 import {
   ScrollAnchorContext,
   ScrollAnchorProvider,

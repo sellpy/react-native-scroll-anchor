@@ -1,7 +1,7 @@
 interface ThrottledFunction<T extends (...args: any) => any> {
   (...args: Parameters<T>): ReturnType<T>;
 }
-export const asyncThrottle = <T extends (...args: any) => ReturnType<T>>(
+export const throttle = <T extends (...args: any) => ReturnType<T>>(
   fn: T,
   wait: number
 ): ThrottledFunction<T> => {

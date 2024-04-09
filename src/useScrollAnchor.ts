@@ -5,10 +5,10 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
-import { asyncThrottle } from './asyncThrottle';
+import { throttle } from './utils/throttle';
 import { InvalidAnchorKey, InvalidRefError } from './errors';
-import { memoize } from './memoize';
-import { debounce } from './debounce';
+import { memoize } from './utils/memoize';
+import { debounce } from './utils/debounce';
 
 export type NativeComponent = Component<unknown> & NativeMethods;
 
@@ -56,7 +56,7 @@ const useScrollAnchor = (
   // eslint-disable-next-line react-hooks/exhaustive-deps -- Memoized and throttle functions should not be recreated on re-renders
   const throttleScrollTo = useCallback(
     memoize((_anchorName) =>
-      asyncThrottle((pos) => {
+      throttle((pos) => {
         ref.current?.scrollTo(pos);
       }, throttleMs)
     ),
@@ -73,7 +73,7 @@ const useScrollAnchor = (
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttleOnScrollListeners = useCallback(
-    asyncThrottle(
+    throttle(
       (event: NativeSyntheticEvent<NativeScrollEvent>) =>
         _onScrollListeners(event),
       throttleMs

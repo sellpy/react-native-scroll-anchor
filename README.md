@@ -30,16 +30,12 @@ export default function App() {
   const scrollRef = React.useRef<ScrollView>(null);
 
   const methods = useScrollAnchor(scrollRef);
-  const { scrollTo } = methods;
+  const { scrollTo, onScroll } = methods;
 
   return (
     <ScrollAnchorProvider {...methods}>
       <Button onPress={scrollTo('books')} title="View books" />
-      <ScrollView
-        onScroll={methods.onScroll}
-        scrollEventThrottle={32}
-        ref={scrollRef}
-      >
+      <ScrollView onScroll={onScroll} scrollEventThrottle={32} ref={scrollRef}>
         <Anchor name="movies">
           <MovieList />
         </Anchor>

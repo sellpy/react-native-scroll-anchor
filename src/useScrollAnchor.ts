@@ -1,24 +1,16 @@
-import React, {
-  Component,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react';
+import React, { Component, useCallback, useRef, useState } from 'react';
 import {
-  View,
+  ScrollView,
   type NativeMethods,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  type ScrollView,
 } from 'react-native';
 import { asyncThrottle } from './asyncThrottle';
 import { InvalidAnchorKey, InvalidRefError } from './errors';
 import { memoize } from './memoize';
-import { debounce } from './utils';
+import { debounce } from './debounce';
 
-type NativeComponent = Component<unknown> & NativeMethods;
+export type NativeComponent = Component<unknown> & NativeMethods;
 
 export interface ScrollAnchorOptions {
   throttle?: number;
@@ -261,53 +253,5 @@ const _measure = (ref: NativeMethods): Promise<Coordinates> =>
       resolve({ x, y });
     });
   });
-
-export const ScrollAnchorContext = React.createContext<ScrollAnchorMethods>({
-  register: () => null,
-  unregister: () => null,
-  scrollTo: () => null,
-  timeoutOnScroll: () => null,
-  onScroll: () => null,
-  anchorRefs: {},
-});
-
-export const ScrollAnchorProvider = ({
-  children,
-  ...methods
-}: {
-  children: ReactNode;
-} & ScrollAnchorMethods) => {
-  return (
-    <ScrollAnchorContext.Provider value={methods}>
-      {children}
-    </ScrollAnchorContext.Provider>
-  );
-};
-
-export const useScrollAnchorContext = () =>
-  React.useContext(ScrollAnchorContext);
-
-export const useAnchorRef = (key: string) => {
-  const { register, unregister } = useScrollAnchorContext();
-  const ref = useRef<NativeComponent>(null);
-
-  useEffect(() => {
-    if (ref && ref.current) register(key, ref);
-    return () => unregister(key);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount
-  }, [key, ref.current]);
-
-  return ref;
-};
-export const Anchor = ({
-  name,
-  children,
-}: {
-  name: string;
-  children: ReactNode;
-}) => {
-  const ref = useAnchorRef(name);
-  return <View ref={ref}>{children}</View>;
-};
 
 export default useScrollAnchor;

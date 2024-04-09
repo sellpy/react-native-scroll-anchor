@@ -1,10 +1,11 @@
-import useScrollAnchor, {
-  useAnchorRef,
-  useScrollAnchorContext,
-  ScrollAnchorProvider,
+import { Anchor } from './Anchor';
+import {
   ScrollAnchorContext,
-  Anchor,
-} from './useScrollAnchor';
+  ScrollAnchorProvider,
+  useScrollAnchorContext,
+} from './Context';
+import { useAnchorRef } from './useAnchorRef';
+import useScrollAnchor from './useScrollAnchor';
 
 export {
   useScrollAnchor,

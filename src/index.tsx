@@ -1,4 +1,5 @@
 import { Anchor } from './components/Anchor';
+import AnchorScrollView from './components/AnchorScrollView';
 import {
   ScrollAnchorContext,
   ScrollAnchorProvider,
@@ -14,4 +15,5 @@ export {
   ScrollAnchorProvider,
   ScrollAnchorContext,
   Anchor,
+  AnchorScrollView,
 };

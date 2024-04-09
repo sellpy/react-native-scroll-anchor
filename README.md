@@ -28,24 +28,26 @@ import {
 
 export default function App() {
   const scrollRef = React.useRef<ScrollView>(null);
+
   const methods = useScrollAnchor(scrollRef);
   const { scrollTo } = methods;
 
   return (
-    <>
-      <Button onPress={scrollTo('item')} title="Scroll to Awesome Item" />
+    <ScrollAnchorProvider {...methods}>
+      <Button onPress={scrollTo('books')} title="View books" />
       <ScrollView
         onScroll={methods.onScroll}
         scrollEventThrottle={32}
         ref={scrollRef}
       >
-        <ScrollAnchorProvider {...methods}>
-          <Anchor name="item">
-            <AwesomeItem />
-          </Anchor>
-        </ScrollAnchorProvider>
+        <Anchor name="movies">
+          <MovieList />
+        </Anchor>
+        <Anchor name="books">
+          <BookList />
+        </Anchor>
       </ScrollView>
-    </>
+    </ScrollAnchorProvider>
   );
 }
 ```

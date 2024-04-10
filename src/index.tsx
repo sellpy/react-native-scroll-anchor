@@ -1,12 +1,14 @@
 import { Anchor } from './components/Anchor';
-import AnchorScrollView from './components/AnchorScrollView';
 import {
   ScrollAnchorContext,
   ScrollAnchorProvider,
   useScrollAnchorContext,
 } from './Context';
 import { useAnchorRef } from './hooks/useAnchorRef';
-import useScrollAnchor from './hooks/useScrollAnchor';
+import useScrollAnchor, {
+  type ScrollAnchorMethods,
+  type ScrollAnchorOptions,
+} from './hooks/useScrollAnchor';
 
 export {
   useScrollAnchor,
@@ -15,5 +17,6 @@ export {
   ScrollAnchorProvider,
   ScrollAnchorContext,
   Anchor,
-  AnchorScrollView,
 };
+
+export type { ScrollAnchorMethods, ScrollAnchorOptions };

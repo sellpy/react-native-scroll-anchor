@@ -63,8 +63,10 @@ export function MyComponent() {
   const ref = useRef(null);
   const { register, unregister, scrollTo, timeoutOnScroll, onScroll } =
     useScrollAnchor(ref, {
-      onAnchorReachedX: (key) => console.log('Reached anchor on x-axis:', key),
-      onAnchorReachedY: (key) => console.log('Reached anchor on y-axis:', key),
+      onAnchorReachedX: (name) =>
+        console.log('Reached anchor on x-axis:', name),
+      onAnchorReachedY: (name) =>
+        console.log('Reached anchor on y-axis:', name),
     });
 
   return (
@@ -86,31 +88,31 @@ export function MyComponent() {
 
 **Type `ScrollAnchorOptions`**
 
-| Name             | Type                    | Default | Description                                                                                                                                      |
-| ---------------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| throttle         | `number`                | `200`   | Throttles onAnchorReachedX, onAnchorReachedY callbacks per anchor key as well as the scrollTo method.                                            |
-| offsetX          | `number`                | `0`     | Offset for the x-axis when scrolling to an anchor.                                                                                               |
-| offsetY          | `number`                | `0`     | Offset for the y-axis when scrolling to an anchor.                                                                                               |
-| onAnchorReachedX | `(key: string) => void` |         | Callback when an anchor is reached on the x-axis. Requires binding of `onScroll` between referenced `ScrollView` and returned `onScroll` method. |
-| onAnchorReachedY | `(key: string) => void` |         | Callback when an anchor is reached on the y-axis. Same requriements as for onAnchorReachedX                                                      |
-| keepInBounds     | `boolean`               | `false` | If true, we make sure onAnchorReachedX and onAnchorReachedY are called when scrolling. They will be called with the nearest anchor key.          |
+| Name             | Type                     | Default | Description                                                                                                                                      |
+| ---------------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| throttle         | `number`                 | `200`   | Throttles onAnchorReachedX, onAnchorReachedY callbacks per anchor name as well as the scrollTo method.                                           |
+| offsetX          | `number`                 | `0`     | Offset for the x-axis when scrolling to an anchor.                                                                                               |
+| offsetY          | `number`                 | `0`     | Offset for the y-axis when scrolling to an anchor.                                                                                               |
+| onAnchorReachedX | `(name: string) => void` |         | Callback when an anchor is reached on the x-axis. Requires binding of `onScroll` between referenced `ScrollView` and returned `onScroll` method. |
+| onAnchorReachedY | `(name: string) => void` |         | Callback when an anchor is reached on the y-axis. Same requriements as for onAnchorReachedX                                                      |
+| keepInBounds     | `boolean`                | `false` | If true, we make sure onAnchorReachedX and onAnchorReachedY are called when scrolling. They will be called with the nearest anchor.              |
 
 **Returns**
 
 | Name            | Type                                                       | Description                                                                                                                                                             |
 | --------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| register        | `(key: string, ref: RefObject<NativeComponent>) => void`   | Register an anchor with a key and a ref.                                                                                                                                |
-| unregister      | `(key: string) => void`                                    | Unregister an anchor with a key.                                                                                                                                        |
-| scrollTo        | `(key: string) => void`                                    | Scroll to an anchor by key.                                                                                                                                             |
+| register        | `(name: string, ref: RefObject<NativeComponent>) => void`  | Register an anchor with a name and a ref.                                                                                                                               |
+| unregister      | `(name: string) => void`                                   | Unregister an anchor with a name.                                                                                                                                       |
+| scrollTo        | `(name: string) => void`                                   | Scroll to an anchor by name.                                                                                                                                            |
 | timeoutOnScroll | `(timeMs: string) => void`                                 | Timeout onScroll manually, this won't cause onAnchorReachedX or onAnchorReachedY to be called.                                                                          |
 | onScroll        | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void` | The onScroll event handler. Pass this to the ScrollView component. **NOTE: this is required for if onScrollAnchorReachedX or onScrollAnchorReachedY should be called.** |
-| anchorRefs      | `Record<string, RefObject<NativeComponent>>`               | The refs of all registered anchors, key is anchor name povided                                                                                                          |
+| anchorRefs      | `Record<string, RefObject<NativeComponent>>`               | The refs of all registered anchors, name is anchor name povided                                                                                                         |
 
 ---
 
 ### useAnchorRef
 
-Anchor ref could be registered using the `useAnchorRef` hook. This hook is useful when you want to register an anchor ref without using the `Anchor` component.
+Another way to register an anchor is by using the `useAnchorRef` hook. This hook is useful when you want to register an anchor ref without using the `Anchor` component.
 
 This component requires the `ScrollAnchorProvider` to be present in the component tree.
 
@@ -129,9 +131,9 @@ export function MyComponent() {
 
 **Args**
 
-| Name | Type     | Default | Description           |
-| ---- | -------- | ------- | --------------------- |
-| key  | `string` |         | The key of the anchor |
+| Name | Type     | Default | Description            |
+| ---- | -------- | ------- | ---------------------- |
+| name | `string` |         | The name of the anchor |
 
 **Returns**
 
@@ -143,18 +145,28 @@ export function MyComponent() {
 
 ### AnchorProvider
 
+Sets up a provider enabling usage of `<Anchor />` and `useAnchorRef` in the component tree.
+
 ```tsx
 import {
   ScrollAnchorProvider,
   useScrollAnchor,
 } from '@sellpy/react-native-scroll-anchor';
+import { ScrollView } from 'react-native';
 
 export function MyComponent() {
-  const methods = useScrollAnchor();
+  const scrollViewRef = useRef<ScrollView>(null);
+  const methods = useScrollAnchor(ref);
 
   return (
     <ScrollAnchorProvider {...methods}>
-      <MyAnchoredComponent />
+      <ScrollView
+        ref={scrollViewRef}
+        onScroll={methods.onScroll}
+        scrollEventThrottle={16}
+      >
+        <MyAnchoredComponent />
+      </ScrollView>
     </ScrollAnchorProvider>
   );
 }

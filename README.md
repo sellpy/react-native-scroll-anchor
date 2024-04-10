@@ -5,9 +5,9 @@
 
 **Hooks and utilities to simplify scrolling to elements (anchors) in React Native**.
 
-- Zero dependencies 📦
-- Lightweight and fast ⚡️
 - Easy to use 🚀
+- Lightweight and fast ⚡️
+- Zero dependencies 📦
 
 ## Installation
 

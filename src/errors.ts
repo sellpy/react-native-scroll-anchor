@@ -5,9 +5,9 @@ export class InvalidRefError extends Error {
   }
 }
 
-export class InvalidAnchorKey extends Error {
+export class InvalidAnchorName extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'InvalidAnchorKey';
+    this.name = 'InvalidAnchorName';
   }
 }

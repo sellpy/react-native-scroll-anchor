@@ -5,10 +5,10 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
-import { throttle } from '../utils/throttle';
-import { InvalidAnchorKey, InvalidRefError } from '../errors';
-import { memoize } from '../utils/memoize';
+import { InvalidAnchorName, InvalidRefError } from '../errors';
 import { debounce } from '../utils/debounce';
+import { memoize } from '../utils/memoize';
+import { throttle } from '../utils/throttle';
 
 export type NativeComponent = Component<unknown> & NativeMethods;
 
@@ -16,8 +16,8 @@ export interface ScrollAnchorOptions {
   throttle?: number;
   offsetX?: number;
   offsetY?: number;
-  onAnchorReachedX?: (key: string) => void;
-  onAnchorReachedY?: (key: string) => void;
+  onAnchorReachedX?: (name: string) => void;
+  onAnchorReachedY?: (name: string) => void;
   keepInBounds?: boolean;
 }
 
@@ -27,9 +27,9 @@ interface Coordinates {
 }
 
 export interface ScrollAnchorMethods {
-  register: (key: string, ref: React.RefObject<NativeComponent>) => void;
-  unregister: (key: string) => void;
-  scrollTo: (key: string) => void;
+  register: (name: string, ref: React.RefObject<NativeComponent>) => void;
+  unregister: (name: string) => void;
+  scrollTo: (name: string) => void;
   timeoutOnScroll: (timeMs: number) => void;
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   anchorRefs: Record<string, React.RefObject<NativeComponent>>;
@@ -83,16 +83,16 @@ const useScrollAnchor = (
 
   const _calculateAnchor = async (
     anchorRefs: Record<string, React.RefObject<NativeComponent>>,
-    key: string
+    name: string
   ) => {
-    const anchorRef = anchorRefs[key];
+    const anchorRef = anchorRefs[name];
     if (!anchorRef)
-      throw new InvalidAnchorKey(
-        `Anchor ${key} not found. Consider running "register(ref, ${key})" to register the anchor.`
+      throw new InvalidAnchorName(
+        `Anchor ${name} not found. Consider running "register(ref, ${name})" to register the anchor.`
       );
     if (!anchorRef.current || !ref?.current)
       throw new InvalidRefError(
-        `Missing ref for either anchor ${key} or parent ScrollView, component may have been unmounted before microtask was processed.`
+        `Missing ref for either anchor ${name} or parent ScrollView, component may have been unmounted before microtask was processed.`
       );
 
     const { x, y } = await _measure(anchorRef.current);
@@ -123,18 +123,18 @@ const useScrollAnchor = (
   };
 
   const register = async (
-    key: string,
+    name: string,
     ref: React.RefObject<NativeComponent>
   ) => {
     if (!ref.current) throw new InvalidRefError('ScrollView ref is not set');
 
-    setAnchorRefs((prevState) => ({ ...prevState, [key]: ref }));
+    setAnchorRefs((prevState) => ({ ...prevState, [name]: ref }));
   };
 
-  const unregister = (key: string) =>
+  const unregister = (name: string) =>
     setAnchorRefs((prevState) => {
       const newState = { ...prevState };
-      delete newState[key];
+      delete newState[name];
       return newState;
     });
 
@@ -160,14 +160,14 @@ const useScrollAnchor = (
     if (xAnchorReached) onAnchorReachedX(xAnchorReached);
   };
 
-  const scrollTo = async (key: string) => {
-    const anchor = await _calculateAnchor(anchorRefs, key).catch((e) => {
+  const scrollTo = async (name: string) => {
+    const anchor = await _calculateAnchor(anchorRefs, name).catch((e) => {
       if (e instanceof InvalidRefError) return null;
       throw e;
     });
     if (!anchor) return;
 
-    throttleScrollTo(key)({ y: anchor.y + offsetY, x: anchor.x + offsetX });
+    throttleScrollTo(name)({ y: anchor.y + offsetY, x: anchor.x + offsetX });
   };
 
   const timeoutOnScroll = (timeMs: number) => {

@@ -92,9 +92,9 @@ export function MyComponent() {
 
 ### useAnchorRef
 
-Another way to register an anchor is by using the `useAnchorRef` hook. This hook is useful when you want to register an anchor ref without using the `Anchor` component.
+Another way to register an anchor is by using the [`useAnchorRef`](#useanchorref) hook. This hook is useful when you want to register an anchor ref without using the [`<Anchor/>`](#anchor) component.
 
-This component requires the `ScrollAnchorProvider` to be present in the component tree.
+This component requires the [`ScrollAnchorProvider`](#scrollanchorprovider) to be present in the component tree.
 
 ```tsx
 import { useAnchorRef } from '@sellpy/react-native-scroll-anchor';
@@ -119,9 +119,9 @@ export function MyComponent() {
 
 ## Components
 
-### AnchorProvider
+### ScrollAnchorProvider
 
-Sets up a provider enabling usage of `<Anchor />` and `useAnchorRef` in the component tree.
+Sets up a provider enabling usage of [`<Anchor />`](#anchor) and [`useAnchorRef`](#useanchorref) in the component tree.
 
 ```tsx
 import {
@@ -157,9 +157,9 @@ export function MyComponent() {
 
 ### Anchor
 
-The `Anchor` component is used to wrap a component that you want to scroll to.
+The `<Anchor/>` component is used to wrap a component that you want to scroll to.
 
-This component requires the `ScrollAnchorProvider` to be present in the component tree.
+This component requires the [`ScrollAnchorProvider`](#scrollanchorprovider) to be present in the component tree.
 
 ```tsx
 import { Anchor } from '@sellpy/react-native-scroll-anchor';

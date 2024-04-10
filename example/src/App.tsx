@@ -11,7 +11,8 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { Anchor, AnchorScrollView, useScrollAnchorContext } from '../../src';
+import { Anchor, useScrollAnchorContext } from '../../src';
+import AnchorScrollView from '../../src/components/AnchorScrollView';
 
 export default function App() {
   const width = Dimensions.get('window').width;

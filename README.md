@@ -35,7 +35,7 @@ export default function App() {
 
   return (
     <ScrollAnchorProvider {...methods}>
-      <Button onPress={scrollTo('books')} title="View books" />
+      <Button onPress={() => scrollTo('books')} title="View books" />
       <ScrollView onScroll={onScroll} scrollEventThrottle={32} ref={scrollRef}>
         <Anchor name="movies">
           <MovieList />

@@ -1,7 +1,8 @@
 # @sellpy/react-native-scroll-anchor ⚓️
 
-[![npm version](https://badge.fury.io/js/react-native-scroll-anchor.svg)](https://badge.fury.io/js/react-native-scroll-anchor)
+[![npm version](https://badge.fury.io/js/%40sellpy%2Freact-native-scroll-anchor.svg)](https://badge.fury.io/js/%40sellpy%2Freact-native-scroll-anchor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 **Hooks and utilities to simplify scrolling to elements (anchors) in React Native**.
 

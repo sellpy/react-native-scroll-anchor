@@ -21,6 +21,6 @@ jobs:
         run: yarn pack
 
       - name: Publish package
-        run: yarn publish --access public --non-interactive
+        run: yarn npm publish --access public --non-interactive
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

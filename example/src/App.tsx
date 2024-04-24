@@ -71,6 +71,7 @@ const ScrollToButtons = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 200,
     alignItems: 'center',
     justifyContent: 'center',
   },

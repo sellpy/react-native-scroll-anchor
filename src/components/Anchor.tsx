@@ -11,5 +11,9 @@ export const Anchor = ({
   children: ReactNode;
 }) => {
   const ref = useAnchorRef(name);
-  return <View ref={ref}>{children}</View>;
+  return (
+    <View collapsable={false} ref={ref}>
+      {children}
+    </View>
+  );
 };

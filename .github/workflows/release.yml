@@ -20,8 +20,12 @@ jobs:
       - name: Pack package
         run: yarn pack
 
-      - name: Write authtoken
+      - name: Auth with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTOMATION_TOKEN }}" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
 
       - name: Publish package
-        run: yarn npm publish --access public
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
